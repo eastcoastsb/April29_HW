@@ -1,18 +1,3 @@
-/*function ToDoTemplate(item) {
-	this.item = item;
-	var toDoArr = [];
-	var toDoObj = {
-  			title: listItem
-  		};
-
-	toDoArr.push(toDoObj);
-	return toDoArr;
-
-}*/
-
-
-
-
 $(document).ready(function() {
 	$(".well").on("click", "button", function(e) {
 		e.preventDefault();
@@ -23,27 +8,69 @@ $(document).ready(function() {
 		var toDoObj = {
   			title: listItem
   		};
+
   		toDoArr.push(toDoObj);
 
 		var addTmpl = _.template($("#doList").html(), toDoArr);
 
 		$(".toDoList").html(addTmpl);
+			console.log(addTmpl);
 
-		$("input:text").focus(function(){
-		if(this.value === this.defaultValue){
-			this.value = '';
-		}
 	});
-	$("input:text").blur(function(){
-		if (!this.value.length) {
-			this.value = this.defaultValue;
-		}
+
+	$(".toDoList").on("click", ".glyphicon", function(event) {
+		event.preventDefault();
+
+		if ($(this).closest("li").hasClass("completed")) {
+			$(this).closest("li").removeClass("completed");
+			return;
+		} else {
+			$(this).closest("li").addClass("completed");
+			return;
+		};
+
 	});
+
+	$(".navbar").on("click", "button", function(event) {
+		event.preventDefault();
+		var toRemove = $(".completed").val("");
+		var removeThis = toDoArr.indexOf(toRemove);
+
+		if ($("li").hasClass("completed")) {
+			toDoArr.splice(removeThis, 1);
+			$(".completed").remove();
+			return;
+			
+		};
+	});
+
+	$(".toDoTabs").on("click", ".navbar-text", function(event) {
+		event.preventDefault();
+
+		if ($(this).hasClass("nowActive")) {
+			return;
+		} else {
+			$(this).siblings().removeClass("nowActive");
+			$(this).addClass("nowActive");
+		};
+
+
 	});
 
 
 
 });
+
+
+
+
+
+
+
+
+
+
+
 
 
 

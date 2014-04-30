@@ -1,1 +1,1 @@
-var toDoArr = []
+var toDoArr = [];
