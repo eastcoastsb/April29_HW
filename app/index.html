@@ -22,7 +22,7 @@
 
         <script type="template/html" id="doList">
             <% _.each(toDoArr, function(element, index, list){ %>
-                <li><span class="glyphicon glyphicon-ok"></span><%= element.title %></li>
+                <li data-index="<%=index%>"><span class="glyphicon glyphicon-ok"></span><%= element.title %></li>
         <% }); %>
 
 

@@ -1,3 +1,16 @@
+var itemsLeft = function() {
+	var markup = "";
+	var i;
+
+	for (i = 0; i < toDoArr.length; i++) {
+		markup += "Items Left" + "(" + toDoArr.length + ")";
+		return markup;
+		};
+};
+
+
+
+
 $(document).ready(function() {
 	$(".well").on("click", "button", function(e) {
 		e.preventDefault();
@@ -16,6 +29,8 @@ $(document).ready(function() {
 		$(".toDoList").html(addTmpl);
 			console.log(addTmpl);
 
+		$("p").html("Items Left" + "(" + toDoArr.length + ")");
+
 	});
 
 	$(".toDoList").on("click", ".glyphicon", function(event) {
@@ -33,15 +48,20 @@ $(document).ready(function() {
 
 	$(".navbar").on("click", "button", function(event) {
 		event.preventDefault();
-		var toRemove = $(".completed").val("");
-		var removeThis = toDoArr.indexOf(toRemove);
+		//var toRemove = $(".completed").val();
+		var removeThis = $(".completed").data("index");
 
 		if ($("li").hasClass("completed")) {
 			toDoArr.splice(removeThis, 1);
 			$(".completed").remove();
+			$("p").html("Items Left" + "(" + toDoArr.length + ")");
 			return;
 			
 		};
+
+		
+
+		
 	});
 
 	$(".toDoTabs").on("click", ".navbar-text", function(event) {
