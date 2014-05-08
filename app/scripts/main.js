@@ -1,6 +1,4 @@
 var toDoUrl = "http://tiy-fee-rest.herokuapp.com/collections/ryantodos";
-	console.log(toDoUrl);
-
 
 $(document).ready(function(){
 	myToDoList.init();
@@ -11,9 +9,11 @@ var myToDoList = {
 		this.initStyling();
     	this.initEvents();
 	},
+
 	initStyling: function() {
     	this.renderToDos();
   	},
+
   	initEvents: function() {
   		$(".well").on("click", "button", function(e) {
   			e.preventDefault();
@@ -51,10 +51,12 @@ var myToDoList = {
 		});
 
   	},
+
   	render: function($el, template, data) {
       	var tmpl = _.template(template, data);
       	$el.html(tmpl);
   	},
+
   	renderToDos: function() {
 	    $.ajax({
 	      url: toDoUrl,
@@ -70,6 +72,7 @@ var myToDoList = {
 	      }
 	    });
 	  },
+
 	 addToDo: function() {
 	 	var listItem = $("input:text").val();
 		var toDoObj = {
@@ -89,24 +92,34 @@ var myToDoList = {
 	      	}
   		});
 	  },
+
 	  removeToDo: function(e) {
 	  	var toRemove = $(".completed").data("postid");
-	  	//var willRemove = toRemove.data("postid");
-	  	console.log(toRemove);
-	  	
-	  	
+	  		console.log(toRemove);
+
 	  		$.ajax({
 	  			url: "http://tiy-fee-rest.herokuapp.com/collections/ryantodos/" + toRemove,
 	  			type: "DELETE",
 	  			error: function(jqXHR, status, error) {
 		        	alert("Failed");
 		      	},
-		      	success: function(data) { 		  
-		      		alert("Item removed!");	
+		      	success: function(data) { 
+		      		$.getJSON(toDoUrl, function(json) {
+		      			if (json.length > 0) {
+		      				alert("Item removed!  You have:" + "" + json.length + "" + "item(s) left, so get to it.");
+		      			} else {
+		      				alert("You have nothing left to do, go chug a beer!");
+		      			};
+
+		      		});		  
+		      			
 		      	}
 	  		});
 	  	
-	  },
+	  }
+
+	  
+
 
 
 
